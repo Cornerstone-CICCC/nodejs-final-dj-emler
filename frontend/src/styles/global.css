@@ -1,0 +1,134 @@
+/* Initial CSS Setup Start */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans KR", sans-serif;
+  line-height: 1.5;
+  background-color: #fff;
+  color: #222;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+body {
+  background-color: rgb(14, 14, 14);
+}
+/* Initial CSS Setup end */
+
+/* header start */
+header nav {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-left img {
+  height: 20px;
+  width: auto;
+}
+
+header nav .header-left h1 {
+  color: white;
+  font-size: 16px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.header-right ul {
+  display: flex;
+}
+
+.header-right ul li {
+  width: auto;
+  height: auto;
+  align-items: center;
+  padding: 15px;
+}
+
+.signupBtn {
+  background-color: rgb(47, 105, 243);
+  color: white;
+  padding: 15px;
+}
+
+/* header end */
+
+/* footer start */
+
+footer {
+  margin-top: 20px;
+}
+
+.footer-top ul {
+  display: flex;
+  color: rgba(113, 113, 122);
+  gap: 20px;
+  font-size: 12px;
+  text-align: center;
+  justify-content: center;
+}
+
+.footer-top ul li:hover {
+  color: rgba(50, 50, 50);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.footer-bottom {
+  display: flex;
+  color: rgba(113, 113, 122);
+  font-size: 12px;
+  text-align: center;
+  justify-content: center;
+}
+/* footer end */

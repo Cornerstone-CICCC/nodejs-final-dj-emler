@@ -5,6 +5,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
+import checkingTypingSocket from "./sockets/leaderboard.socket";
+import scoreRouter from "./routes/score.routes";
 
 // Create server
 const app = express();
@@ -14,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes write your router
-//app.use("/", chatRouter);
+app.use("/", scoreRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Server is running!");
@@ -24,7 +26,7 @@ app.get("/", (req: Request, res: Response) => {
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://127.0.0.1:4321", // Your frontend url here (Astro, React, vanilla HTML)
+    origin: "http://localhost:4321", // Your frontend url here (Astro, React, vanilla HTML)
     methods: ["GET", "POST"],
   },
 });
@@ -38,6 +40,7 @@ mongoose
 
     // Start Socket.IO
     //chatSocket(io);
+    checkingTypingSocket(io);
 
     // Start the server
     const PORT = process.env.PORT || 3000;

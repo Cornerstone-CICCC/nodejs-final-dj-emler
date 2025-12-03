@@ -10,13 +10,15 @@ const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+const leaderboard_socket_1 = __importDefault(require("./sockets/leaderboard.socket"));
+const score_routes_1 = __importDefault(require("./routes/score.routes"));
 // Create server
 const app = (0, express_1.default)();
 // Middleware
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 // Routes write your router
-//app.use("/", chatRouter);
+app.use("/", score_routes_1.default);
 app.get("/", (req, res) => {
     res.status(200).send("Server is running!");
 });
@@ -24,7 +26,7 @@ app.get("/", (req, res) => {
 const server = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: "http://127.0.0.1:4321", // Your frontend url here (Astro, React, vanilla HTML)
+        origin: "http://localhost:4321", // Your frontend url here (Astro, React, vanilla HTML)
         methods: ["GET", "POST"],
     },
 });
@@ -36,6 +38,7 @@ mongoose_1.default
     console.log("Connected to MongoDB database");
     // Start Socket.IO
     //chatSocket(io);
+    (0, leaderboard_socket_1.default)(io);
     // Start the server
     const PORT = process.env.PORT || 3000;
     server.listen(PORT, () => {

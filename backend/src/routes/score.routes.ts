@@ -1,9 +1,16 @@
 import { Router } from "express";
-import { getRanking, saveScore } from "../controllers/score.controller";
+import {
+  createTypingResult,
+  getRanking,
+  saveScore,
+} from "../controllers/score.controller";
 
-const router = Router();
+const scoreRouter = Router();
 
-router.get("/rank", getRanking);
-router.post("/", saveScore);
+scoreRouter.post("/result", createTypingResult);
+scoreRouter.get("/rank", getRanking);
+scoreRouter.post("/", saveScore);
 
-export default router;
+//const router = Router();
+
+export default scoreRouter;

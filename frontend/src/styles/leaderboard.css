@@ -1,0 +1,26 @@
+.leaderboard-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.leaderboard-title {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th, 
+.leaderboard-table td {
+  color: #fff;
+  padding: 12px;
+}
+
+.leaderboard-table tr:nth-child(even) {
+  background-color: #1a1a1a;
+}

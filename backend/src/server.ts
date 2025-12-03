@@ -4,6 +4,8 @@ import { Server } from "socket.io";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import scoreRoutes from "./routes/score.routes"
+import leaderboardSocket from "./sockets/leaderboard.socket";
 dotenv.config();
 
 // Create server
@@ -12,6 +14,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use("/score", scoreRoutes)
 
 // Routes write your router
 //app.use("/", chatRouter);
@@ -37,7 +40,7 @@ mongoose
     console.log("Connected to MongoDB database");
 
     // Start Socket.IO
-    //chatSocket(io);
+    leaderboardSocket(io);
 
     // Start the server
     const PORT = process.env.PORT || 3000;

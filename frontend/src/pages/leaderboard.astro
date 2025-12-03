@@ -6,63 +6,63 @@ const Pagetitle = "leaderboard";
 
 ---
   
-<Layout title={Pagetitle}>
-  <div class="leaderboard-container">
-    <h2 class="leaderboard-title">Daily Leaderboard</h2>
 
-    <table class="leaderboard-table">
-      <thead>
+<div class="leaderboard-container">
+  <h2 class="leaderboard-title">Daily Leaderboard</h2>
+
+  <table class="leaderboard-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>User</th>
+        <th>WPM</th>
+        <th>Accuracy</th>
+        <th>Time</th>
+        <th>Taken</th>
+      </tr>
+    </thead>
+
+    <tbody id="ranking-table">
+      <!-- data of server or WebSocket -->
+    </tbody>
+  </table>
+</div>
+
+<script is:inline>
+  async function loadRanking() {
+    const res = await fetch("http://localhost:3500/score/rank");
+    const data = await res.json();
+    updateTable(data);
+  }
+  
+  function updateTable(data) {
+    const tbody = document.getElementById("ranking-table");
+    tbody.innerHTML = "";
+
+    data.forEach((item, index) => {
+      tbody.innerHTML += `
         <tr>
-          <th>Rank</th>
-          <th>User</th>
-          <th>WPM</th>
-          <th>Accuracy</th>
-          <th>Time</th>
-          <th>Taken</th>
+          <td>${index + 1}</td>
+          <td>${item.userId?.username || "Unknown"}</td>
+          <td>${item.wpm}</td>
+          <td>${item.accuracy}%</td>
+          <td>${item.time || "-"}</td>
+          <td>${item.taken || "-"}</td>
         </tr>
-      </thead>
+      `
+    })
+  }
 
-      <tbody id="ranking-table">
-        <!-- data of server or WebSocket -->
-      </tbody>
-    </table>
-  </div>
+  loadRanking()
+</script>
 
-  <script is:inline>
-    async function loadRanking() {
-      const res = await fetch("http://localhost:3500/score/rank");
-      const data = await res.json();
-      updateTable(data);
-    }
-    
-    function updateTable(data) {
-      const tbody = document.getElementById("ranking-table");
-      tbody.innerHTML = "";
+<script src="http://localhost:3500/socket.io/socket.io.js" is:inline></script>
 
-      data.forEach((item, index) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${index + 1}</td>
-            <td>${item.userId?.username || "Unknown"}</td>
-            <td>${item.wpm}</td>
-            <td>${item.accuracy}%</td>
-            <td>${item.time || "-"}</td>
-            <td>${item.taken || "-"}</td>
-          </tr>
-        `
-      })
-    }
+<script is:inline>
+  const socket = io("http://localhost:3500");
 
-    loadRanking()
-  </script>
+  socket.on("ranking_update", (ranking) => {
+    updateTable(ranking);
+  });
+</script>
 
-  <script src="http://localhost:3500/socket.io/socket.io.js" is:inline></script>
-
-  <script is:inline>
-    const socket = io("http://localhost:3500");
-
-    socket.on("ranking_update", (ranking) => {
-      updateTable(ranking);
-    });
-  </script>
-</Layout>

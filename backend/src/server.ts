@@ -4,8 +4,13 @@ import { Server } from "socket.io";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import scoreRoutes from "./routes/score.routes";
+//import leaderboardSocket from "./sockets/leaderboard.socket";
 dotenv.config();
-import checkingTypingSocket from "./sockets/leaderboard.socket";
+import {
+  checkingTypingSocket,
+  leaderboardSocket,
+} from "./sockets/leaderboard.socket";
 import scoreRouter from "./routes/score.routes";
 
 // Create server
@@ -14,6 +19,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use("/score", scoreRoutes);
 
 // Routes write your router
 app.use("/", scoreRouter);
@@ -41,6 +47,7 @@ mongoose
     // Start Socket.IO
     //chatSocket(io);
     checkingTypingSocket(io);
+    leaderboardSocket(io);
 
     // Start the server
     const PORT = process.env.PORT || 3000;

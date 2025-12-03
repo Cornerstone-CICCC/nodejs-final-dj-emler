@@ -12,8 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.leaderboardSocket = exports.checkingTypingSocket = void 0;
 const score_model_1 = require("../models/score.model");
 const mongoose_1 = __importDefault(require("mongoose"));
+const score_service_1 = require("../services/score.service");
 const checkingTypingSocket = (io) => {
     io.on("connection", (socket) => {
         console.log(socket.id);
@@ -60,4 +62,19 @@ const checkingTypingSocket = (io) => {
         }));
     });
 };
-exports.default = checkingTypingSocket;
+exports.checkingTypingSocket = checkingTypingSocket;
+const leaderboardSocket = (io) => {
+    io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("Client connected:", socket.id);
+        const ranking = yield (0, score_service_1.getTopRanking)();
+        socket.emit("ranking_update", ranking);
+        socket.on("disconnect", () => {
+            console.log("Client disconnected:", socket.id);
+        });
+    }));
+};
+exports.leaderboardSocket = leaderboardSocket;
+exports.default = {
+    checkingTypingSocket: exports.checkingTypingSocket,
+    leaderboardSocket: exports.leaderboardSocket,
+};

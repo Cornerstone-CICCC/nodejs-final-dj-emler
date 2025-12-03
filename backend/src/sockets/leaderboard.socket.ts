@@ -2,8 +2,9 @@ import { Server, Socket } from "socket.io";
 import { TypingResult } from "../models/score.model";
 import { createTypingResult } from "../controllers/score.controller";
 import mongoose from "mongoose";
+import { getTopRanking } from "../services/score.service";
 
-const checkingTypingSocket = (io: Server) => {
+export const checkingTypingSocket = (io: Server) => {
   io.on("connection", (socket: Socket) => {
     console.log(socket.id);
     socket.on("sendResult", async (data) => {
@@ -65,4 +66,20 @@ const checkingTypingSocket = (io: Server) => {
   });
 };
 
-export default checkingTypingSocket;
+export const leaderboardSocket = (io: Server) => {
+  io.on("connection", async (socket) => {
+    console.log("Client connected:", socket.id);
+
+    const ranking = await getTopRanking();
+    socket.emit("ranking_update", ranking);
+
+    socket.on("disconnect", () => {
+      console.log("Client disconnected:", socket.id);
+    });
+  });
+};
+
+export default {
+  checkingTypingSocket,
+  leaderboardSocket,
+};

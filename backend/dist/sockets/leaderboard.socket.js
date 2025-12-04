@@ -41,7 +41,7 @@ const checkingTypingSocket = (io) => {
             try {
                 const score = new score_model_1.TypingResult({
                     //userId: data.userId,
-                    userId,
+                    userId: new mongoose_1.default.Types.ObjectId(),
                     username: username,
                     wpm,
                     accuracy,
@@ -54,6 +54,8 @@ const checkingTypingSocket = (io) => {
                     takenAt,
                 });
                 yield score.save();
+                const ranking = yield (0, score_service_1.getTopRanking)();
+                io.emit("ranking_update", ranking);
                 io.emit("saveResult", score);
             }
             catch (error) {

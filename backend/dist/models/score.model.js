@@ -36,7 +36,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypingResult = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const TypingResultSchema = new mongoose_1.default.Schema({
-    userId: { type: mongoose_1.default.Schema.Types.ObjectId, required: true, ref: "User" },
+    //userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+    userId: { type: mongoose_1.default.Schema.Types.ObjectId, required: true },
     username: { type: String, required: true },
     wpm: { type: Number, required: true },
     accuracy: { type: Number, required: true },
@@ -50,7 +51,8 @@ const TypingResultSchema = new mongoose_1.default.Schema({
 });
 exports.TypingResult = mongoose_1.default.model("TypingResult", TypingResultSchema);
 const ScoreSchema = new mongoose_1.Schema({
-    userId: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
+    //userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    userId: { type: mongoose_1.Schema.Types.ObjectId, required: true },
     wpm: { type: Number, required: true },
     accuracy: { type: Number, required: true },
     time: { type: Number, default: 60 },

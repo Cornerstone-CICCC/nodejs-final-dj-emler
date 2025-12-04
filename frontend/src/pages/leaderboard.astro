@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro"
 import "../styles/leaderboard.css"
 
-const Pagetitle = "leaderboard";
+
 
 ---
   
@@ -17,6 +17,8 @@ const Pagetitle = "leaderboard";
         <th>User</th>
         <th>WPM</th>
         <th>Accuracy</th>
+        <th>correct</th>
+        <th>Incorrect</th>
         <th>Time</th>
         <th>Taken</th>
       </tr>
@@ -29,6 +31,28 @@ const Pagetitle = "leaderboard";
 </div>
 
 <script is:inline>
+
+  function toVancouverTime(isoString) {
+    const date = new Date(isoString);
+    const local = new Date(
+      date.toLocaleString("en-US", { timeZone: "America/Vancouver" })
+    );
+
+    return (
+      local.getFullYear() +
+      "-" +
+      String(local.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(local.getDate()).padStart(2, "0") +
+      " " +
+      String(local.getHours()).padStart(2, "0") +
+      ":" +
+      String(local.getMinutes()).padStart(2, "0") +
+      ":" +
+      String(local.getSeconds()).padStart(2, "0")
+    );
+  }
+
   async function loadRanking() {
     const res = await fetch("http://localhost:3500/score/rank");
     const data = await res.json();
@@ -40,14 +64,22 @@ const Pagetitle = "leaderboard";
     tbody.innerHTML = "";
 
     data.forEach((item, index) => {
+        let rank;
+        if (index === 0) rank = "🥇";
+        else if (index === 1) rank = "🥈";
+        else if (index === 2) rank = "🥉";
+        else rank = index + 1;
+
       tbody.innerHTML += `
         <tr>
-          <td>${index + 1}</td>
-          <td>${item.userId?.username || "Unknown"}</td>
-          <td>${item.wpm}</td>
+          <td>${rank}</td>
+          <td>${item.username || "Unknown"}</td>
+          <td>${item.wpm} WPM</td>
           <td>${item.accuracy}%</td>
-          <td>${item.time || "-"}</td>
-          <td>${item.taken || "-"}</td>
+          <td>${item.correctChars}</td>
+          <td>${item.incorrectChars}</td>
+          <td>0:${item.duration || "-"}</td>
+          <td>${toVancouverTime(item.takenAt) || "-"}</td>
         </tr>
       `
     })

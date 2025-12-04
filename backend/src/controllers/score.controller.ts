@@ -14,6 +14,7 @@ export const createTypingResult = async (req: Request, res: Response) => {
 export async function getRanking(req: Request, res: Response) {
   try {
     const ranking = await getTopRanking();
+    console.log("ranking", ranking);
     return res.status(200).json(ranking);
   } catch (error: any) {
     console.error("getRanking error:", error);

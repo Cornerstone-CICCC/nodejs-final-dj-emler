@@ -54,12 +54,15 @@ exports.saveTypingResult = saveTypingResult;
 //import Score from "../models/score.model";
 function getTopRanking() {
     return __awaiter(this, void 0, void 0, function* () {
-        return yield score_model_1.default.find()
-            .sort({ wpm: -1 })
-            .limit(15)
-            .populate("userId", "username");
+        return yield score_model_1.TypingResult.find().sort({ wpm: -1, accuracy: -1 }).limit(15);
     });
 }
+// export async function getTopRanking() {
+//   return await Score.find()
+//     .sort({ wpm: -1 })
+//     .limit(15)
+//     .populate("userId", "username");
+// }
 function addScore(data) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield score_model_1.default.create(data);

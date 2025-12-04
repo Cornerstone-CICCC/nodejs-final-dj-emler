@@ -7,11 +7,15 @@ export const saveTypingResult = async (data: any) => {
 //import Score from "../models/score.model";
 
 export async function getTopRanking() {
-  return await Score.find()
-    .sort({ wpm: -1 })
-    .limit(15)
-    .populate("userId", "username");
+  return await TypingResult.find().sort({ wpm: -1, accuracy: -1 }).limit(15);
 }
+
+// export async function getTopRanking() {
+//   return await Score.find()
+//     .sort({ wpm: -1 })
+//     .limit(15)
+//     .populate("userId", "username");
+// }
 
 export async function addScore(data: {
   userId: string;

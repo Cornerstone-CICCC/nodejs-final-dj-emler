@@ -1,5 +1,5 @@
 import { io } from "https://cdn.socket.io/4.7.2/socket.io.esm.min.js";
-import mongoose from "mongoose";
+//import mongoose from "mongoose";
 export const socket = io("http://localhost:3500");
 
 export function sendTypingResult(options = {}) {
@@ -9,7 +9,8 @@ export function sendTypingResult(options = {}) {
   const activeTimeText = activeTimeOption ? activeTimeOption.textContent : null;
 
   const data = {
-    userId: new mongoose.Types.ObjectId(),
+    //userId: new mongoose.Types.ObjectId(),
+    //userId,
     username: "dbtest1",
     wpm: document.querySelector(".wpm-area").textContent.replace(" WPM", ""),
     accuracy: Number(

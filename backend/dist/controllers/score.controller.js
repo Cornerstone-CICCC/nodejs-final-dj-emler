@@ -28,6 +28,7 @@ function getRanking(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const ranking = yield (0, score_service_2.getTopRanking)();
+            console.log("ranking", ranking);
             return res.status(200).json(ranking);
         }
         catch (error) {

@@ -17,8 +17,9 @@ export function startTime(seconds, typingData) {
       countdownDisplay.textContent = `0:0${timeLeft}`;
       typingblock.disabled = true;
 
-      socket.emit("sendResult", typingData);
-      sendTypingResult(typingData);
+      //socket.emit("sendResult", typingData);
+      //sendTypingResult(typingData);
+      sendTypingResult();
       showSnackbar("Your time is over.", "success");
     }
     timeLeft--;

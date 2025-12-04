@@ -45,7 +45,7 @@ export const checkingTypingSocket = (io: Server) => {
       try {
         const score = new TypingResult({
           //userId: data.userId,
-          userId,
+          userId: new mongoose.Types.ObjectId(),
           username: username,
           wpm,
           accuracy,
@@ -58,6 +58,10 @@ export const checkingTypingSocket = (io: Server) => {
           takenAt,
         });
         await score.save();
+
+        const ranking = await getTopRanking();
+
+        io.emit("ranking_update", ranking);
         io.emit("saveResult", score);
       } catch (error) {
         console.error("Error saving chat:", error);

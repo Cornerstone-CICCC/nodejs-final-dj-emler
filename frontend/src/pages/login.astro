@@ -1,10 +1,314 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
 
 const Pagetitle = "login";
-
 ---
-  
+
 <Layout title={Pagetitle}>
-  
+  <main>
+    <div class="wrapper">
+      <div class="intro">
+        <h1>Log In</h1>
+        <p>
+          Log in to your TypeTest.io account to save your test results, view
+          your statistics and track your progress.
+        </p>
+      </div>
+
+      <form id="login-form" novalidate>
+        <div class="inputs">
+          <label class="form-label" for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            pattern="^[a-zA-Z0-9_.+]+@gmail\.com$"
+            autocomplete="off"
+            required
+          />
+          <label class="form-label" for="password">Password</label>
+          <div class="password-input">
+            <input type="password" name="password" id="password" required />
+            <button type="button" class="toggle-btn"
+              ><i class="fa-solid fa-eye"></i></button
+            >
+          </div>
+        </div>
+        <p id="login-error" class="error-msg">this is a test</p>
+        <button class="login-btn">Log In</button>
+        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+      </form>
+
+      <div class="guest">
+        <div class="divider">
+          <span>or</span>
+        </div>
+        <a href="/">Start a Typing Test as a Guest</a>
+      </div>
+    </div>
+  </main>
 </Layout>
+
+<style>
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 2rem;
+    flex: 1;
+    font-family: "Rubik", sans-serif;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    max-width: 1440px;
+    width: 100%;
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    color: white;
+  }
+
+  .intro h1 {
+    background-color: #18181a;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+
+  .intro p {
+    text-align: center;
+    max-width: 450px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  label {
+    color: white;
+  }
+
+  input {
+    background-color: #18181a;
+    border: 1px solid #272727;
+    padding: 10px;
+    outline: none;
+    border-radius: 5px;
+    caret-color: white;
+    color: white;
+    transition: all 0.5s linear;
+  }
+
+  input:active {
+    transform: scale(0.95);
+  }
+
+  input:focus {
+    border: 2px solid grey;
+  }
+
+  .input-error {
+    border: 1px solid #ee4444;
+  }
+
+  .password-input {
+    position: relative;
+  }
+
+  .password-input input {
+    width: 100%;
+  }
+
+  .toggle-btn {
+    position: absolute;
+    color: grey;
+    top: 0;
+    right: 5px;
+    padding: 7px;
+  }
+
+  form .error-msg {
+    color: #ee4444;
+    background-color: rgba(239, 68, 68, 0.15);
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ee4444;
+    font-size: 14px;
+    display: none;
+  }
+
+  .login-btn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.5s linear;
+  }
+
+  .login-btn:hover {
+    background-color: #60a5fa;
+    cursor: pointer;
+  }
+
+  form p {
+    color: white;
+    text-align: center;
+  }
+
+  form p a {
+    text-decoration: none;
+    color: #3b82f6;
+    transition: all 0.5s linear;
+  }
+
+  form p a:hover {
+    color: #99c3ee;
+  }
+
+  .guest {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 10px;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    color: #555;
+    font-size: 14px;
+    gap: 16px;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #555;
+  }
+
+  .guest a {
+    color: white;
+    background-color: #272729;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.5s linear;
+  }
+
+  .guest a:hover {
+    background-color: #18181a;
+  }
+</style>
+
+<script>
+  // Password toggle
+  const viewBtn = document.querySelector(".toggle-btn") as HTMLButtonElement;
+  const passwordInput = document.getElementById("password") as HTMLInputElement;
+  viewBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      viewBtn.innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
+    } else {
+      passwordInput.type = "password";
+      viewBtn.innerHTML = `<i class="fa-solid fa-eye"></i>`;
+    }
+  });
+
+  // Connect to backend
+  const form = document.getElementById("login-form");
+  const errorMsg = document.getElementById("login-error") as HTMLElement;
+
+  function showError(msg: string) {
+    errorMsg.textContent = msg;
+    errorMsg.style.display = "block";
+  }
+
+  function clearError() {
+    errorMsg.style.display = "none";
+    errorMsg.textContent = "";
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    clearError();
+
+    const emailInput = document.getElementById("email") as HTMLInputElement;
+    const passwordInput = document.getElementById(
+      "password"
+    ) as HTMLInputElement;
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    emailInput.classList.remove("input-error");
+    passwordInput.classList.remove("input-error");
+
+    if (!email || !password) {
+      showError("Email and password are required.");
+
+      if (!email) emailInput.classList.add("input-error");
+      if (!password) passwordInput.classList.add("input-error");
+
+      return;
+    }
+
+    const emailPattern = /^[a-zA-Z0-9_.+]+@gmail\.com$/;
+    if (!emailPattern.test(email)) {
+      showError("Email must be a valid Gmail address.");
+      emailInput.classList.add("input-error");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:3500/users/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        showError(data.message || "Login failed!");
+        emailInput.classList.add("input-error");
+        passwordInput.classList.add("input-error");
+        return;
+      }
+
+      window.location.href = "/";
+    } catch (err) {
+      showError("Error connecting to server");
+      console.error(err);
+    }
+  });
+</script>

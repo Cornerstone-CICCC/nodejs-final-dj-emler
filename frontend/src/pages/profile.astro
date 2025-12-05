@@ -1,10 +1,561 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
 
 const Pagetitle = "profile";
-
 ---
-  
+
 <Layout title={Pagetitle}>
-  
+  <main>
+    <div class="wrapper">
+      <div class="update-email">
+        <h2>Change email</h2>
+        <div class="input">
+          <label class="email-label" for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            pattern="^[a-zA-Z0-9_.+]+@gmail\.com$"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <hr />
+      <div class="update-username">
+        <h2>Change username</h2>
+        <div class="input">
+          <label class="username-label" for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="off" />
+        </div>
+      </div>
+      <hr />
+      <div class="update-password">
+        <h2>Change password</h2>
+        <div class="input">
+          <label class="password-label" for="curr-password"
+            >Current Password</label
+          >
+          <div class="password-input">
+            <input type="password" name="curr-password" id="curr-password" />
+            <button class="toggle-btn"><i class="fa-solid fa-eye"></i></button>
+          </div>
+        </div>
+        <div class="input">
+          <label class="password-label" for="new-password">New Password</label>
+          <div class="password-input">
+            <input type="password" name="new-password" id="new-password" />
+            <button class="toggle-btn"><i class="fa-solid fa-eye"></i></button>
+          </div>
+        </div>
+        <div class="input">
+          <label class="password-label" for="confirm-password"
+            >Confirm New Password</label
+          >
+          <div class="password-input">
+            <input
+              type="password"
+              name="confirm-password"
+              id="confirm-password"
+            />
+            <button class="toggle-btn"><i class="fa-solid fa-eye"></i></button>
+          </div>
+        </div>
+        <button class="update-btn">Save</button>
+      </div>
+      <hr />
+      <div class="logout-delete">
+        <h2>Danger zone</h2>
+        <div class="btns">
+          <button class="logout">Log out</button>
+          <button class="delete">Delete account</button>
+        </div>
+      </div>
+    </div>
+    <div id="toast-container"></div>
+    <div id="confirm-modal" class="confirm-modal hidden">
+      <div class="confirm-box">
+        <p id="confirm-text">Are you sure?</p>
+        <div class="confirm-actions">
+          <button id="confirm-yes">Yes</button>
+          <button id="confirm-no">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </main>
 </Layout>
+
+<style>
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 2rem;
+    flex: 1;
+    font-family: "Rubik", sans-serif;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    max-width: 1440px;
+    width: 100%;
+  }
+
+  h2 {
+    color: white;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  label {
+    color: white;
+  }
+
+  input {
+    background-color: #18181a;
+    border: 1px solid #272727;
+    padding: 10px;
+    outline: none;
+    border-radius: 5px;
+    caret-color: white;
+    color: white;
+    transition: all 0.5s linear;
+  }
+
+  input:active {
+    transform: scale(0.95);
+  }
+
+  input:focus {
+    border: 2px solid grey;
+  }
+
+  .input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .update-btn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: fit-content;
+    align-self: center;
+    transition: all 0.5s linear;
+  }
+
+  .update-btn:hover {
+    background-color: #60a5fa;
+    cursor: pointer;
+  }
+
+  .update-email {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .update-username {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .update-password {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .password-input {
+    position: relative;
+  }
+
+  .password-input input {
+    width: 100%;
+  }
+
+  .toggle-btn {
+    position: absolute;
+    color: grey;
+    top: 0;
+    right: 5px;
+    padding: 7px;
+  }
+
+  .logout-delete {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .logout {
+    background-color: #f49e0b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    align-self: center;
+    transition: all 0.5s linear;
+  }
+
+  .logout:hover {
+    background-color: #f3a723;
+  }
+
+  .delete {
+    background-color: #ee4444;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    align-self: center;
+    transition: all 0.5s linear;
+  }
+
+  .delete:hover {
+    background-color: #eb6161;
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid gray;
+    width: 100%;
+  }
+
+  :global(#toast-container) {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+  }
+
+  :global(.toast) {
+    min-width: 240px;
+    max-width: 350px;
+    padding: 12px 18px;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    pointer-events: all;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeInOut 3s ease forwards;
+  }
+
+  :global(.toast.success) {
+    background-color: rgba(22, 163, 74, 0.2);
+    border: 1px solid #16a34a;
+    color: #16a34a;
+    backdrop-filter: blur(4px);
+  }
+
+  :global(.toast.error) {
+    background-color: rgba(239, 68, 68, 0.15);
+    border: 1px solid #ee4444;
+    color: #ee4444;
+    backdrop-filter: blur(4px);
+  }
+
+  .confirm-modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+  }
+
+  .confirm-modal.hidden {
+    display: none;
+  }
+
+  .confirm-box {
+    background-color: rgba(239, 68, 68, 0.15);
+    border: 2px solid #ee4444;
+    padding: 20px 30px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    max-width: 350px;
+    width: 90%;
+  }
+
+  .confirm-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .confirm-actions button {
+    padding: 8px 18px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  #confirm-yes {
+    background-color: #ee4444;
+    color: white;
+  }
+
+  #confirm-yes:hover {
+    background-color: #eb6161;
+  }
+
+  #confirm-no {
+    background-color: #272727;
+    color: white;
+  }
+
+  #confirm-no:hover {
+    background-color: #3b3b3b;
+  }
+
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    10% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    90% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+</style>
+
+<script>
+  // Toast
+  function showToast(message: string, type: "success" | "error" = "success") {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+
+    toast.classList.add("toast", type);
+    toast.textContent = message;
+
+    container?.appendChild(toast);
+
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
+  }
+
+  // Confirm
+  function openConfirm(message: string) {
+    return new Promise<boolean>((resolve) => {
+      const modal = document.getElementById("confirm-modal")!;
+      const text = document.getElementById("confirm-text")!;
+      const yesBtn = document.getElementById("confirm-yes")!;
+      const noBtn = document.getElementById("confirm-no")!;
+
+      text.textContent = message;
+      modal.classList.remove("hidden");
+
+      const cleanup = () => {
+        modal.classList.add("hidden");
+        yesBtn.onclick = null;
+        noBtn.onclick = null;
+      };
+
+      yesBtn.onclick = () => {
+        cleanup();
+        resolve(true);
+      };
+
+      noBtn.onclick = () => {
+        cleanup();
+        resolve(false);
+      };
+    });
+  }
+
+  // Password toggle
+  const viewBtns = document.querySelectorAll(
+    ".toggle-btn"
+  ) as NodeListOf<HTMLButtonElement>;
+  viewBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const input = btn.parentElement?.querySelector("input");
+
+      if (!input) return;
+
+      if (input.type === "password") {
+        input.type = "text";
+        btn.innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
+      } else {
+        input.type = "password";
+        btn.innerHTML = `<i class="fa-solid fa-eye"></i>`;
+      }
+    });
+  });
+
+  // Connect to backend
+  const API = "http://localhost:3500";
+
+  // Check auth on load
+  window.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const res = await fetch(`${API}/users/check-auth`, {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        window.location.href = "/login";
+        return;
+      }
+
+      const data = await res.json();
+
+      const emailInput = document.getElementById("email") as HTMLInputElement;
+      const usernameInput = document.getElementById(
+        "username"
+      ) as HTMLInputElement;
+
+      if (emailInput) emailInput.value = data.email || "";
+      if (usernameInput) usernameInput.value = data.username || "";
+    } catch (err) {
+      console.error(err);
+      window.location.href = "/login";
+      console.error(err);
+    }
+  });
+
+  // Update profile
+  const saveBtn = document.querySelector(".update-btn");
+
+  saveBtn?.addEventListener("click", async () => {
+    const email = (
+      document.getElementById("email") as HTMLInputElement
+    ).value.trim();
+    const username = (
+      document.getElementById("username") as HTMLInputElement
+    ).value.trim();
+    const curr = (
+      document.getElementById("curr-password") as HTMLInputElement
+    ).value.trim();
+    const newPass = (
+      document.getElementById("new-password") as HTMLInputElement
+    ).value.trim();
+    const confirmPass = (
+      document.getElementById("confirm-password") as HTMLInputElement
+    ).value.trim();
+
+    const updates: any = {};
+
+    if (email) updates.email = email;
+    if (username) updates.username = username;
+
+    if (curr || newPass || confirmPass) {
+      if (!curr || !newPass || !confirmPass) {
+        return showToast("All password fields required.");
+      }
+
+      if (newPass !== confirmPass) {
+        return showToast("New passwords do not match.", "error");
+      }
+
+      updates.currPassword = curr;
+      updates.newPassword = newPass;
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return showToast("Nothing to update!");
+    }
+
+    try {
+      const res = await fetch(`${API}/users/profile`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) return showToast(data.message, "error");
+
+      showToast(data.message, "success");
+    } catch (err) {
+      console.error(err);
+      showToast("Error updating profile.", "error");
+    }
+  });
+
+  // Logout
+  const logoutBtn = document.querySelector(".logout");
+  logoutBtn?.addEventListener("click", async () => {
+    await fetch(`${API}/users/logout`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    window.location.href = "/login";
+  });
+
+  // Delete
+  const deleteBtn = document.querySelector(".delete");
+  deleteBtn?.addEventListener("click", async () => {
+    const confirmDelete = await openConfirm(
+      "Are you suer you want to permanently delete your account?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`${API}/users/delete`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) return showToast(data.message, "error");
+
+      showToast(data.message, "success");
+
+      setTimeout(() => {
+        window.location.href = "/signup";
+      }, 1500);
+    } catch (err) {
+      showToast("Error deleting account.", "error");
+      console.error(err);
+    }
+  });
+</script>

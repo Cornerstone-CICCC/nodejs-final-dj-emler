@@ -1,0 +1,102 @@
+{
+  "simple": {
+    "base": [
+      "The little cat lazily stretched on the warm windowsill, enjoying the sun streaming through the glass as birds chirped softly outside, making it a perfect morning for a long nap.",
+      "I usually drink coffee every morning while sitting on the balcony, watching the world wake up slowly, feeling the fresh breeze on my face, and planning my day ahead with calm and focus.",
+      "She walks to school every day along the quiet streets lined with tall trees whose leaves rustle gently, carrying the sounds of laughter from nearby playgrounds and the occasional bark of a friendly dog.",
+      "He enjoys reading books in the library for hours, flipping through pages filled with stories and information, occasionally pausing to reflect on what he has just read and make notes in his journal.",
+      "They play games together in the park after finishing their homework, running around energetically, laughing at each other's mistakes, and enjoying every moment of their carefree afternoon under the warm sunlight.",
+      "The sun sets beautifully over the mountains, painting the sky with shades of orange and pink while the cool evening breeze carries the scent of wildflowers and the distant sound of a flowing river.",
+      "Birds sing sweetly in the trees every morning, filling the air with melodic tunes that mix with the soft rustling of leaves and the occasional distant honk of a car starting its day in the quiet neighborhood.",
+      "We are planning a trip to the beach this weekend, packing snacks, towels, and sunscreen, excited to build sandcastles, swim in the waves, and watch the sun dip below the horizon in a spectacular show of colors.",
+      "My favorite color is blue because it reminds me of the sky on clear days, of calm oceans stretching endlessly, and of soft twilight moments when everything feels peaceful and serene.",
+      "The dog wags its tail happily whenever it sees its owner, running in circles with excitement, sniffing the air for familiar scents, and occasionally stopping to bark at passing squirrels or fluttering leaves."
+    ],
+    "punctuationOnly": [
+      "Wow! That performance was absolutely incredible, leaving the entire audience speechless, applauding enthusiastically, and whispering in amazement about how perfectly everything went.",
+      "“Are you coming with us?” they asked politely, looking at me expectantly, while I hesitated, unsure if I should join their adventurous plan or stay behind and finish my quiet reading.",
+      "If you need anything, just let me know, and I’ll try my best to help you; whether it’s carrying groceries, fixing a computer, or simply listening to your concerns, I’ll be there.",
+      "She asked, “What time does the movie start?” glancing nervously at her watch, hoping that we weren’t going to miss the first few scenes of the highly anticipated film.",
+      "Oh, I completely forgot about the meeting this afternoon! I rushed to prepare my notes, double-check my schedule, and made sure I had my laptop and charger ready.",
+      "He packed his bag with a few items: a book, a snack, and a water bottle, making sure nothing was forgotten, and carefully closed the zipper to avoid anything falling out during the trip.",
+      "Let's go to the park; the weather is perfect for a long walk, enjoying the fresh air, watching children play, and taking in the serene scenery all around us.",
+      "I can't believe it's already Friday—this week went by so fast! It seems like just yesterday we were celebrating Monday morning, and now the weekend is right around the corner.",
+      "“Don't worry,” he said, “everything will be alright.” His calm voice reassured everyone in the room, easing tension and bringing a sense of comfort to the anxious team members.",
+      "Is this the right way to the train station, or should I turn back? I asked myself, glancing at the map, trying to find the familiar landmarks I remembered from previous trips."
+    ],
+    "numbersOnly": [
+      "She typed 85 words per minute during the test, finishing well before time was up and managing to keep a high level of accuracy, which impressed her instructor.",
+      "The building has 42 floors, each filled with offices, conference rooms, and recreational areas, making it a bustling hub of activity from early morning to late evening.",
+      "They traveled more than 3000 miles last year, visiting cities, mountains, and beaches, experiencing new cultures, foods, and languages, and creating memories to last a lifetime.",
+      "There are 7 days in a week, and each day brings its own unique challenges, opportunities, and moments to appreciate, whether at work, school, or home with family and friends.",
+      "He bought 3 apples from the market, 2 loaves of bread, and 1 bottle of juice, carefully balancing them in his bag so that nothing would be crushed during the walk home.",
+      "The meeting is scheduled for 10 in the morning, lasting approximately 90 minutes, with several agenda items to discuss, including budget planning, project updates, and team performance.",
+      "My little brother will turn 6 years old next month, and we are planning a small party with balloons, cake, and games to make sure he has a wonderful celebration with friends and family.",
+      "Our team won the game with a score of 5 to 2, cheering loudly on the field, celebrating each goal, and hugging each other tightly after the final whistle blew.",
+      "This recipe requires 2 cups of flour and 1 cup of sugar, along with several other ingredients measured carefully, mixed thoroughly, and baked to golden perfection in the oven.",
+      "The library has over 50000 books available for checkout, including novels, encyclopedias, and journals, making it a treasure trove of knowledge for students and researchers alike."
+    ],
+    "punctuationAndNumbers": [
+      "The event will begin at 7:30 tonight, and attendees are expected to arrive at least 15 minutes early, wearing their badges and following the seating instructions provided at the entrance.",
+      "The package weighs 2.5 kilograms, and it must be handled carefully, avoiding bumps, drops, or exposure to water to ensure all contents arrive intact and undamaged.",
+      "The code contains 128 lines in total, including functions, loops, and comments, and each line must be thoroughly reviewed before the final submission to ensure correctness.",
+      "Her appointment is on June 5th at 3:00 PM, so don't be late! Please bring all necessary documents, confirm your attendance, and call if any changes arise.",
+      "Wow, you scored 98% on the final exam-that's amazing! Your hard work, dedication, and late-night studying sessions have truly paid off in a remarkable way.",
+      "Please buy three things: 2 liters of milk, 1 loaf of bread, and a dozen eggs, and make sure they are fresh and of good quality before bringing them home.",
+      "The final cost was $45.50, which was more than I expected, including taxes, shipping, and an additional fee for express delivery, so I double-checked the invoice carefully.",
+      "“Can you believe it’s only 10 degrees outside?” she asked, shivering, while wrapping herself in a warm scarf and searching for her gloves in the chilly morning air.",
+      "The train to the city leaves from platform 4 at 8:05 AM, so make sure to arrive early, validate your ticket, and check the schedule for any delays or changes.",
+      "He needed to run 3 miles, but he only managed to complete 2.5 miles due to fatigue, pausing to rest, hydrate, and regain energy before continuing with his training routine."
+    ]
+  },
+  "advanced": {
+    "base": [
+      "The scientist carefully analyzed the massive and complex dataset for weeks, cross-referencing variables, testing multiple hypotheses, and creating visualizations that clearly communicated intricate relationships within the data.",
+      "Technology continues to evolve at an astonishing pace, with new innovations in artificial intelligence, quantum computing, and renewable energy transforming industries and creating both opportunities and challenges globally.",
+      "Creativity often emerges from exploring unfamiliar ideas, engaging with diverse perspectives, and challenging traditional assumptions, which leads to breakthroughs in art, science, and problem-solving.",
+      "The intricate tapestry depicted a historical narrative of the ancient civilization, showing scenes of daily life, ceremonial events, and monumental architecture that reflected cultural values and social hierarchies.",
+      "His eloquent speech captivated the audience and inspired profound contemplation, weaving together historical references, personal anecdotes, and thought-provoking questions that resonated deeply with everyone present.",
+      "Understanding the nuances of diplomatic relations requires extensive study, careful observation, and the ability to navigate complex cultural, economic, and political landscapes with tact and foresight.",
+      "The protagonist's internal conflict drives the novel's compelling plot, revealing hidden motivations, emotional struggles, and ethical dilemmas that challenge readers to reflect on human nature.",
+      "Environmental sustainability is a paramount concern for future generations, demanding immediate action, innovative solutions, and widespread cooperation to mitigate the effects of climate change and resource depletion.",
+      "The philosophical treatise examines the fundamental nature of existence, questioning assumptions, exploring paradoxes, and presenting arguments that challenge readers to reconsider conventional wisdom and embrace critical thinking.",
+      "Her meticulous research methodology ensured the validity of the experimental results, including rigorous controls, repeated trials, and detailed documentation of all procedures, observations, and analyses."
+    ],
+    "punctuationOnly": [
+      "He emphasized the importance of critical thinking and logical reasoning in problem-solving, highlighting how careful analysis often leads to the best outcomes, while impulsive decisions tend to produce errors.",
+      "The company implemented innovative strategies to increase productivity, improve employee satisfaction, and expand its market share, all while maintaining ethical standards and environmental responsibility.",
+      "The report concluded, quite surprisingly, that the initial hypothesis was flawed, necessitating a reevaluation of assumptions, additional testing, and careful revision of methodologies.",
+      "Despite numerous setbacks-including funding cuts and technical difficulties—the team persevered, demonstrating resilience, ingenuity, and unwavering commitment to achieving their research goals.",
+      "The curriculum covers several disciplines: literature, history, philosophy, and art, ensuring a holistic education that develops critical thinking, creativity, and cultural awareness in students.",
+      "The author’s prose is elegant, yet her subject matter is profoundly unsettling, blending lyrical descriptions with dark themes that leave readers contemplating complex moral and psychological issues.",
+      "What an extraordinary discovery; it will undoubtedly reshape our understanding of astrophysics, challenge long-held theories, and open new avenues for scientific exploration and innovation.",
+      "To succeed, one must be persistent, adaptable, and—above all-resilient, embracing failure as a teacher and cultivating a mindset that values continuous growth and learning.",
+      "The politician's rhetoric, while powerful, lacked substantive policy proposals, leaving voters uncertain about concrete plans, practical solutions, and long-term visions for societal improvement.",
+      "She pondered the question for a moment before replying, “The implications are far-reaching,” emphasizing the importance of ethical considerations, potential consequences, and global impact in decision-making."
+    ],
+    "numbersOnly": [
+      "The project's budget is estimated to be around 1.2 million dollars, including salaries, materials, and contingency funds to cover unexpected expenses over the two-year period.",
+      "The system processes over 50000 transactions per second, ensuring minimal latency, high reliability, and accurate tracking for financial, logistical, and operational purposes across multiple servers.",
+      "The corporation announced a quarterly profit of 75 million dollars, reflecting increased sales, cost reductions, and strategic investments in emerging markets and technology innovations.",
+      "The algorithm can compute 100 trillion operations in a single second, enabling rapid data analysis, complex simulations, and advanced modeling tasks that were previously impossible at this scale.",
+      "Archaeologists dated the artifact to approximately 4500 years before the present era, using carbon dating, stratigraphic analysis, and comparison with other historical findings to verify its authenticity.",
+      "The human genome contains over 3 billion base pairs of DNA, encoding the instructions for growth, development, and functioning of the human body, while revealing variations that influence health and disease.",
+      "The satellite orbits the Earth at an altitude of 22236 miles, completing a full rotation approximately every 24 hours, and transmitting critical data for weather monitoring and communication systems.",
+      "The study involved a cohort of 1500 participants over a period of 10 years, tracking health outcomes, lifestyle changes, and genetic information to draw statistically significant conclusions.",
+      "The new processor boasts a 30 percent increase in performance, reduced energy consumption, and improved thermal management, making it suitable for high-demand computing applications and server farms.",
+      "The population of the city is projected to exceed 5 million by the year 2030, requiring careful urban planning, sustainable infrastructure, and efficient public services to accommodate growth."
+    ],
+    "punctuationAndNumbers": [
+      "The international conference, held from May 10th to 12th, provided valuable insights into future trends and new technologies, while attendees networked extensively and shared detailed case studies.",
+      "Her latest research paper, published in 2023, received over 1,500 citations, highlighting its impact, relevance, and contribution to advancing knowledge in the field of biotechnology and genetics.",
+      "The company's stock price surged by 15%-an unprecedented increase-following the release of its Q4 earnings report, investor presentations, and market speculation regarding future growth.",
+      "According to the census data, the metropolitan area's population grew by 2.3% last year, reaching a total of 8,175,133 residents, which has significant implications for housing, transportation, and social services.",
+      "The experiment, which required a constant temperature of -78.5 degrees Celsius, yielded some truly remarkable results, demonstrating the reaction's sensitivity to even the slightest environmental changes.",
+      "“We have allocated a budget of $2.5 million for the project's initial phase,” the CEO announced at the 9:00 AM press conference, outlining specific milestones, deliverables, and expected outcomes for investors and staff.",
+      "The final vote was incredibly close: 51 senators in favor, 49 opposed, reflecting the contentious nature of the legislation and the significant debate it generated within political and public spheres.",
+      "The historical document, dated October 26, 1881, describes the events of the famous gunfight at the O.K. Corral, providing eyewitness accounts, legal proceedings, and contextual commentary from the era.",
+      "The system's latency is less than 50 milliseconds, a significant improvement over the previous version's 200-millisecond delay, ensuring smooth user experiences for real-time applications and streaming.",
+      "Her discovery in 1998, which involved identifying 3 new species, was a major breakthrough in the field of marine biology, expanding knowledge of biodiversity and prompting further ecological studies."
+    ]
+  }
+}

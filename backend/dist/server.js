@@ -10,30 +10,33 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_session_1 = __importDefault(require("cookie-session"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const score_routes_1 = __importDefault(require("./routes/score.routes"));
+//import leaderboardSocket from "./sockets/leaderboard.socket";
 dotenv_1.default.config();
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
+const leaderboard_socket_1 = require("./sockets/leaderboard.socket");
+const score_routes_2 = __importDefault(require("./routes/score.routes"));
 // Create server
 const app = (0, express_1.default)();
 // Middleware
 app.use((0, cors_1.default)({
     origin: "http://localhost:4321",
-    credentials: true
+    credentials: true,
 }));
 if (!process.env.COOKIE_PRIMARY_KEY || !process.env.COOKIE_SECONDARY_KEY) {
     throw new Error("Missing cookie keys!");
 }
 app.use(express_1.default.json());
+app.use("/score", score_routes_1.default);
 app.use((0, cookie_session_1.default)({
     name: "session",
-    keys: [
-        process.env.COOKIE_PRIMARY_KEY,
-        process.env.COOKIE_SECONDARY_KEY
-    ],
+    keys: [process.env.COOKIE_PRIMARY_KEY, process.env.COOKIE_SECONDARY_KEY],
     maxAge: 3 * 30 * 24 * 60 * 60 * 1000, // 3 months
 }));
 // Routes write your router
 //app.use("/", chatRouter);
-app.use('/users', user_routes_1.default);
+app.use("/users", user_routes_1.default);
+app.use("/", score_routes_2.default);
 app.get("/", (req, res) => {
     res.status(200).send("Server is running!");
 });
@@ -41,19 +44,22 @@ app.get("/", (req, res) => {
 const server = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: "http://127.0.0.1:4321", // Your frontend url here (Astro, React, vanilla HTML)
+        origin: "http://localhost:4321", // Your frontend url here (Astro, React, vanilla HTML)
         methods: ["GET", "POST"],
-        credentials: true
+        credentials: true,
     },
 });
 // Connect to MongoDB and start server
 const MONGO_URI = process.env.DATABASE_URI;
 mongoose_1.default
-    .connect(MONGO_URI, { dbName: "typing_test" })
+    //.connect(MONGO_URI, { dbName: "typing_test" })
+    .connect(MONGO_URI, { dbName: "finalproject" })
     .then(() => {
     console.log("Connected to MongoDB database");
     // Start Socket.IO
     //chatSocket(io);
+    (0, leaderboard_socket_1.checkingTypingSocket)(io);
+    (0, leaderboard_socket_1.leaderboardSocket)(io);
     // Start the server
     const PORT = process.env.PORT || 3000;
     server.listen(PORT, () => {

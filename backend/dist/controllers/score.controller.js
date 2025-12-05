@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createTypingResult = void 0;
 exports.getRanking = getRanking;
-exports.saveScore = saveScore;
 const score_service_1 = require("../services/score.service");
 const score_service_2 = require("../services/score.service");
 const createTypingResult = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -36,27 +35,6 @@ function getRanking(req, res) {
             return res
                 .status(500)
                 .json({ message: "Failed to fetch ranking", error: error.message });
-        }
-    });
-}
-function saveScore(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const { userId, wpm, accuracy, time, taken } = req.body;
-            const newScore = yield (0, score_service_2.addScore)({
-                userId,
-                wpm,
-                accuracy,
-                time,
-                taken,
-            });
-            return res.status(201).json(newScore);
-        }
-        catch (error) {
-            console.error("SaveScore error:", error);
-            return res
-                .status(500)
-                .json({ message: "Failed to save score", error: error.message });
         }
     });
 }

@@ -63,6 +63,15 @@ import "../styles/leaderboard.css"
     const tbody = document.getElementById("ranking-table");
     tbody.innerHTML = "";
 
+  if (!data || data.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align: center;">No data available</td>
+      </tr>
+    `;
+    return;
+  }
+
     data.forEach((item, index) => {
         let rank;
         if (index === 0) rank = "🥇";

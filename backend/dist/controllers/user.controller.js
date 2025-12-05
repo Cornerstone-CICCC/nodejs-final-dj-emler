@@ -90,7 +90,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const getUserByUsername = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.session || !req.session.username) {
         res.status(401).json({
-            message: "Only logged-in user can access this page!"
+            message: "Only logged-in user can access this page!",
         });
         return;
     }
@@ -103,7 +103,7 @@ const getUserByUsername = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const foundUser = user[0];
     res.status(200).json({
         username: foundUser.username,
-        email: foundUser.email
+        email: foundUser.email,
     });
 });
 /**
@@ -125,7 +125,7 @@ const updateAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             res.status(400).json({ message: "Nothing to update!" });
             return;
         }
-        const user = yield user_model_1.User.findById(userId).select('+password');
+        const user = yield user_model_1.User.findById(userId).select("+password");
         if (!user) {
             res.status(404).json({ message: "User not found." });
             return;
@@ -198,5 +198,5 @@ exports.default = {
     getUserByUsername,
     updateAccount,
     logout,
-    deleteAccount
+    deleteAccount,
 };

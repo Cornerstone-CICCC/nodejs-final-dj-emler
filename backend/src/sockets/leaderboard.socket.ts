@@ -8,7 +8,6 @@ export const checkingTypingSocket = (io: Server) => {
   io.on("connection", (socket: Socket) => {
     console.log(socket.id);
     socket.on("sendResult", async (data) => {
-      //const text = data;
       console.log("data", data);
       if (!data) {
         console.warn("sendResult received null or undefined data");

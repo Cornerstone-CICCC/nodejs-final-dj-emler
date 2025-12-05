@@ -20,7 +20,6 @@ const checkingTypingSocket = (io) => {
     io.on("connection", (socket) => {
         console.log(socket.id);
         socket.on("sendResult", (data) => __awaiter(void 0, void 0, void 0, function* () {
-            //const text = data;
             console.log("data", data);
             if (!data) {
                 console.warn("sendResult received null or undefined data");

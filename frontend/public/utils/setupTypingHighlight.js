@@ -34,13 +34,20 @@ export const setupTypingHighlight = (elapsedTimeGetter) => {
       }
     }
 
-    let accuracy = 100;
+    //let accuracy = 100;
+    let accuracy =
+      typedText.length > 0
+        ? Math.round((correct / typedText.length) * 100)
+        : 100;
+
     if (typedTextClean.length > 0) {
       accuracy = Math.round((correct / typedTextClean.length) * 100);
     }
 
+    //const wpm = calculateWPM(typedText, elapsedTime);
     const wpm = calculateWPM(typedTextClean.length, elapsedTime);
 
+    //console.log("wpm", wpm);
     wpmArea.textContent = `${wpm} WPM`;
     wpmArea2.textContent = `${wpm} WPM`;
     accuracyArea.textContent = `${accuracy}%`;

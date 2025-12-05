@@ -19,7 +19,7 @@ export function startTime(seconds, typingData) {
 
       //socket.emit("sendResult", typingData);
       //sendTypingResult(typingData);
-      sendTypingResult();
+      //sendTypingResult();
       showSnackbar("Your time is over.", "success");
     }
     timeLeft--;

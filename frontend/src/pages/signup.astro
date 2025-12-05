@@ -54,6 +54,7 @@ const Pagetitle = "signup";
         <a href="/">Start a Typing Test as a Guest</a>
       </div>
     </div>
+    <div id="snackbar">Snackbar</div>
   </main>
 </Layout>
 
@@ -231,6 +232,32 @@ const Pagetitle = "signup";
   .guest a:hover {
     background-color: #18181a;
   }
+
+  #snackbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  z-index: 2147483647 !important;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease, bottom 0.4s ease;
+}
+
+  #snackbar.show {
+    opacity: 1;
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+
+  #snackbar.success {
+    background-color: #4caf50;
+  }
 </style>
 
 <script>
@@ -317,10 +344,31 @@ const Pagetitle = "signup";
         return;
       }
 
-      window.location.href = "/login";
+      showSnackbar("Your time is over.", "success");
+      
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
+
     } catch (err) {
       showError("Error connecting to server");
       console.error(err);
     }
   });
+
+  function showSnackbar(message:string, type:string) {
+      const snackbar =  document.getElementById("snackbar") as HTMLInputElement;
+    
+    if (!snackbar) return;
+
+    snackbar.textContent = message;
+
+    snackbar.className = "";
+    snackbar.classList.add(type);
+    snackbar.classList.add("show");
+
+    setTimeout(() => {
+      snackbar.classList.remove("show");
+    }, 2000);
+  }
 </script>

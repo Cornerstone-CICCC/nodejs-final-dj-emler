@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const user_model_1 = require("../models/user.model");
 const user_service_1 = __importDefault(require("../services/user.service"));
 /**
  * Sign up (add user)
@@ -106,7 +107,7 @@ const getUserByUsername = (req, res) => __awaiter(void 0, void 0, void 0, functi
     });
 });
 /**
- * Update username or password
+ * Update email or username or password
  *
  * @route PUT /users/profile
  * @param {Request} req
@@ -118,18 +119,40 @@ const updateAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             res.status(401).json({ message: "Not logged in!" });
             return;
         }
-        const { username, email, password } = req.body;
-        if (!(username === null || username === void 0 ? void 0 : username.trim()) && !(email === null || email === void 0 ? void 0 : email.trim()) && !(password === null || password === void 0 ? void 0 : password.trim())) {
+        const userId = req.session.userId;
+        const { username, email, currPassword, newPassword } = req.body;
+        if (!username && !email && !currPassword && !newPassword) {
             res.status(400).json({ message: "Nothing to update!" });
             return;
         }
-        const updated = yield user_service_1.default.update(req.session.userId, { username, email, password });
-        if (!updated) {
-            res.status(400).json({ message: "Update failed (username may be taken)." });
+        const user = yield user_model_1.User.findById(userId).select('+password');
+        if (!user) {
+            res.status(404).json({ message: "User not found." });
             return;
         }
-        if (updated.username)
-            req.session.username = updated.username;
+        // Email update
+        if (email) {
+            user.email = email.trim();
+        }
+        // Username update
+        if (username) {
+            user.username = username.trim();
+            req.session.username = user.username;
+        }
+        // Password update
+        if (currPassword || newPassword) {
+            if (!currPassword || !newPassword) {
+                res.status(400).json({ message: "Current and new password required." });
+                return;
+            }
+            const match = yield bcrypt_1.default.compare(currPassword, user.password);
+            if (!match) {
+                res.status(400).json({ message: "Incorrect current password." });
+                return;
+            }
+            user.password = yield bcrypt_1.default.hash(newPassword, 12);
+        }
+        yield user.save();
     }
     res.status(200).json({ message: "Profile updated successfully!" });
 });

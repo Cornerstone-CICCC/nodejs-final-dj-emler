@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
-import { IUser } from '../models/user.model'
+import { IUser, User } from '../models/user.model'
 import userService from '../services/user.service'
 
 /**
@@ -112,34 +112,63 @@ const getUserByUsername = async (req: Request, res: Response) => {
 }
 
 /**
- * Update username or password
+ * Update email or username or password
  * 
  * @route PUT /users/profile
  * @param {Request} req
  * @param {Response} res
  */
-const updateAccount = async (req: Request<{}, {}, Partial<IUser>>, res: Response) => {
+const updateAccount = async (req: Request, res: Response) => {
     if (req.session) {
         if (!req.session.userId) {
             res.status(401).json({ message: "Not logged in!" });
             return
         }
 
-        const { username, email, password } = req.body
+        const userId = req.session.userId
 
-        if (!username?.trim() && !email?.trim() && !password?.trim()) {
+        const { username, email, currPassword, newPassword } = req.body
+
+        if (!username && !email && !currPassword && !newPassword) {
             res.status(400).json({ message: "Nothing to update!" })
             return
         }
 
-        const updated = await userService.update(req.session.userId, { username, email, password })
-
-        if (!updated) {
-            res.status(400).json({ message: "Update failed (username may be taken)." })
+        const user = await User.findById(userId).select('+password')
+        if (!user) {
+            res.status(404).json({ message: "User not found." })
             return
         }
 
-        if (updated.username) req.session.username = updated.username
+        // Email update
+        if (email) {
+            user.email = email.trim()
+        }
+
+        // Username update
+        if (username) {
+            user.username = username.trim()
+            req.session.username = user.username
+        }
+
+        // Password update
+        if (currPassword || newPassword) {
+            if (!currPassword || !newPassword) {
+                res.status(400).json({ message: "Current and new password required." })
+                return
+            }
+
+            const match = await bcrypt.compare(currPassword, user.password)
+
+            if (!match) {
+                res.status(400).json({ message: "Incorrect current password." })
+                return
+            }
+
+            user.password = await bcrypt.hash(newPassword, 12)
+
+        }
+        await user.save()
     }
 
     res.status(200).json({ message: "Profile updated successfully!" })

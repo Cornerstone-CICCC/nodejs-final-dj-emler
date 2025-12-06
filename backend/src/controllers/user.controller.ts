@@ -135,6 +135,13 @@ const updateAccount = async (req: Request, res: Response) => {
 
     const { username, email, currPassword, newPassword } = req.body;
 
+    //Email duplication check
+    const findemail = await userService.getByEmail(email);
+    if (findemail) {
+      res.status(409).json({ message: "This email is already registered." });
+      return;
+    }
+
     if (!username && !email && !currPassword && !newPassword) {
       res.status(400).json({ message: "Nothing to update!" });
       return;

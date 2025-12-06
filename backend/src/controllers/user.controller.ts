@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { IUser, User } from "../models/user.model";
 import userService from "../services/user.service";
-import { userInfo } from "os";
 
 /**
  * Sign up (add user)

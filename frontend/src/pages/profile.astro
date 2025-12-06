@@ -525,6 +525,9 @@ const Pagetitle = "profile";
       if (!res.ok) return showToast(data.message, "error");
 
       showToast(data.message, "success");
+      setTimeout(() => {
+        window.location.reload();
+      }, 3500);
     } catch (err) {
       console.error(err);
       showToast("Error updating profile.", "error");

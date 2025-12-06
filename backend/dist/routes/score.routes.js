@@ -5,5 +5,4 @@ const score_controller_1 = require("../controllers/score.controller");
 const scoreRouter = (0, express_1.Router)();
 scoreRouter.post("/result", score_controller_1.createTypingResult);
 scoreRouter.get("/rank", score_controller_1.getRanking);
-//const router = Router();
 exports.default = scoreRouter;

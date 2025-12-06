@@ -1,4 +1,4 @@
-import Score, { TypingResult } from "../models/score.model";
+import { TypingResult } from "../models/score.model";
 
 export const saveTypingResult = async (data: any) => {
   const newResult = new TypingResult(data);
@@ -6,5 +6,5 @@ export const saveTypingResult = async (data: any) => {
 };
 
 export async function getTopRanking() {
-  return await TypingResult.find().sort({ wpm: -1, accuracy: -1 }).limit(15);
+  return await TypingResult.find().sort({ wpm: -1, accuracy: -1 });
 }

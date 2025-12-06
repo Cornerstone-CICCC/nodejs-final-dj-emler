@@ -1,14 +1,11 @@
 import { Server, Socket } from "socket.io";
 import { TypingResult } from "../models/score.model";
-import { createTypingResult } from "../controllers/score.controller";
 import mongoose from "mongoose";
 import { getTopRanking } from "../services/score.service";
 
 export const checkingTypingSocket = (io: Server) => {
   io.on("connection", (socket: Socket) => {
-    console.log(socket.id);
     socket.on("sendResult", async (data) => {
-      console.log("data", data);
       if (!data) {
         console.warn("sendResult received null or undefined data");
         return;
@@ -43,7 +40,6 @@ export const checkingTypingSocket = (io: Server) => {
         return;
       try {
         const score = new TypingResult({
-          //userId: data.userId,
           userId: new mongoose.Types.ObjectId(),
           username: username,
           wpm,
@@ -71,8 +67,6 @@ export const checkingTypingSocket = (io: Server) => {
 
 export const leaderboardSocket = (io: Server) => {
   io.on("connection", async (socket) => {
-    console.log("Client connected:", socket.id);
-
     const ranking = await getTopRanking();
     socket.emit("ranking_update", ranking);
 

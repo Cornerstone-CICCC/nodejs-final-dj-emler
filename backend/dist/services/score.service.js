@@ -19,6 +19,6 @@ const saveTypingResult = (data) => __awaiter(void 0, void 0, void 0, function* (
 exports.saveTypingResult = saveTypingResult;
 function getTopRanking() {
     return __awaiter(this, void 0, void 0, function* () {
-        return yield score_model_1.TypingResult.find().sort({ wpm: -1, accuracy: -1 }).limit(15);
+        return yield score_model_1.TypingResult.find().sort({ wpm: -1, accuracy: -1 });
     });
 }

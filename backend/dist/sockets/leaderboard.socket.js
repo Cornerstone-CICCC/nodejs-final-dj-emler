@@ -18,9 +18,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const score_service_1 = require("../services/score.service");
 const checkingTypingSocket = (io) => {
     io.on("connection", (socket) => {
-        console.log(socket.id);
         socket.on("sendResult", (data) => __awaiter(void 0, void 0, void 0, function* () {
-            console.log("data", data);
             if (!data) {
                 console.warn("sendResult received null or undefined data");
                 return;
@@ -39,7 +37,6 @@ const checkingTypingSocket = (io) => {
                 return;
             try {
                 const score = new score_model_1.TypingResult({
-                    //userId: data.userId,
                     userId: new mongoose_1.default.Types.ObjectId(),
                     username: username,
                     wpm,
@@ -66,7 +63,6 @@ const checkingTypingSocket = (io) => {
 exports.checkingTypingSocket = checkingTypingSocket;
 const leaderboardSocket = (io) => {
     io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("Client connected:", socket.id);
         const ranking = yield (0, score_service_1.getTopRanking)();
         socket.emit("ranking_update", ranking);
         socket.on("disconnect", () => {

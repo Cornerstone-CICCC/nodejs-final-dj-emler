@@ -11,7 +11,6 @@ const cookie_session_1 = __importDefault(require("cookie-session"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const score_routes_1 = __importDefault(require("./routes/score.routes"));
-//import leaderboardSocket from "./sockets/leaderboard.socket";
 dotenv_1.default.config();
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const leaderboard_socket_1 = require("./sockets/leaderboard.socket");
@@ -34,7 +33,6 @@ app.use((0, cookie_session_1.default)({
     maxAge: 3 * 30 * 24 * 60 * 60 * 1000, // 3 months
 }));
 // Routes write your router
-//app.use("/", chatRouter);
 app.use("/users", user_routes_1.default);
 app.use("/", score_routes_2.default);
 app.get("/", (req, res) => {
@@ -52,12 +50,10 @@ const io = new socket_io_1.Server(server, {
 // Connect to MongoDB and start server
 const MONGO_URI = process.env.DATABASE_URI;
 mongoose_1.default
-    //.connect(MONGO_URI, { dbName: "typing_test" })
     .connect(MONGO_URI, { dbName: "finalproject" })
     .then(() => {
     console.log("Connected to MongoDB database");
     // Start Socket.IO
-    //chatSocket(io);
     (0, leaderboard_socket_1.checkingTypingSocket)(io);
     (0, leaderboard_socket_1.leaderboardSocket)(io);
     // Start the server

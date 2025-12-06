@@ -1,9 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro"
 import "../styles/leaderboard.css"
-
-
-
 ---
   
 
@@ -28,6 +24,13 @@ import "../styles/leaderboard.css"
       <!-- data of server or WebSocket -->
     </tbody>
   </table>
+  <div id="table-container">
+      <div>
+        <button id="prev" style="color:white;">Previous</button>
+        <span id="page-info" style="color:white;"></span>
+        <button id="next" style="color:white;">Next</button>
+      </div>
+    </div>
 </div>
 
 <script is:inline>
@@ -73,11 +76,13 @@ import "../styles/leaderboard.css"
   }
 
     data.forEach((item, index) => {
-        let rank;
-        if (index === 0) rank = "🥇";
-        else if (index === 1) rank = "🥈";
-        else if (index === 2) rank = "🥉";
-        else rank = index + 1;
+      
+      const rankNumber = (currentPage - 1) * rowsPerPage + index + 1;
+      let rank;
+      if (rankNumber === 1) rank = "🥇";
+      else if (rankNumber === 2) rank = "🥈";
+      else if (rankNumber === 3) rank = "🥉";
+      else rank = rankNumber;
 
       tbody.innerHTML += `
         <tr>
@@ -95,6 +100,45 @@ import "../styles/leaderboard.css"
   }
 
   loadRanking()
+
+  
+  let rankingData = [];
+  const rowsPerPage = 10;
+  let currentPage = 1;
+
+async function loadData() {
+  const res = await fetch("http://localhost:3500/score/rank");
+  const data = await res.json();
+  rankingData = data;
+  renderPage();
+}
+
+function renderPage() {
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const pageData = rankingData.slice(start, end);
+
+  updateTable(pageData); 
+  document.getElementById("page-info").textContent =
+    `${currentPage} / ${Math.ceil(rankingData.length / rowsPerPage)}`;
+}
+
+document.getElementById("prev").addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderPage();
+  }
+});
+
+document.getElementById("next").addEventListener("click", () => {
+  if (currentPage < Math.ceil(rankingData.length / rowsPerPage)) {
+    currentPage++;
+    renderPage();
+  }
+});
+
+loadData();
+
 </script>
 
 <script src="http://localhost:3500/socket.io/socket.io.js" is:inline></script>
@@ -103,7 +147,8 @@ import "../styles/leaderboard.css"
   const socket = io("http://localhost:3500");
 
   socket.on("ranking_update", (ranking) => {
-    updateTable(ranking);
+    rankingData = ranking; 
+    renderPage();
   });
 </script>
 

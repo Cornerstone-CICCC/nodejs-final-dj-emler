@@ -6,7 +6,7 @@ import cookieSession from "cookie-session";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import scoreRoutes from "./routes/score.routes";
-//import leaderboardSocket from "./sockets/leaderboard.socket";
+
 dotenv.config();
 import userRouter from "./routes/user.routes";
 import {
@@ -41,10 +41,8 @@ app.use(
 );
 
 // Routes write your router
-//app.use("/", chatRouter);
 app.use("/users", userRouter);
 app.use("/", scoreRouter);
-
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Server is running!");
 });
@@ -62,13 +60,11 @@ const io = new Server(server, {
 // Connect to MongoDB and start server
 const MONGO_URI = process.env.DATABASE_URI!;
 mongoose
-  //.connect(MONGO_URI, { dbName: "typing_test" })
   .connect(MONGO_URI, { dbName: "finalproject" })
   .then(() => {
     console.log("Connected to MongoDB database");
 
     // Start Socket.IO
-    //chatSocket(io);
     checkingTypingSocket(io);
     leaderboardSocket(io);
 

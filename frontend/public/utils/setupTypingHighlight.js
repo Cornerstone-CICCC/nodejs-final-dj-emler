@@ -1,26 +1,19 @@
-// setupTypingHighlight.js
+import { stopTimer, showSnackbar } from "./startTime.js";
+
 export const setupTypingHighlight = (elapsedTimeGetter) => {
   const textContent = document.getElementById("text-content");
   const textInput = document.getElementById("typing-input");
   const originalText = textContent.innerText;
-
   const wpmArea = document.querySelector(".wpm-area");
   const wpmArea2 = document.querySelector(".raw-WPM");
-  //const timeArea = document.querySelector(".time-area");
   const accuracyArea = document.querySelector(".accuracy");
-
   const correctWord = document.querySelector(".CorCha");
   const incorrectWord = document.querySelector(".inCorCha");
 
   textInput.addEventListener("input", () => {
     const typedText = textInput.value;
-
-    // const typedTextClean = typedText.replace(/\s+/g, " ");
-    // const originalTextClean = originalText.replace(/\s+/g, " ");
-
     const typedTextClean = typedText;
     const originalTextClean = originalText;
-
     const elapsedTime = elapsedTimeGetter();
 
     let mistakes = 0;
@@ -34,7 +27,6 @@ export const setupTypingHighlight = (elapsedTimeGetter) => {
       }
     }
 
-    //let accuracy = 100;
     let accuracy =
       typedText.length > 0
         ? Math.round((correct / typedText.length) * 100)
@@ -44,10 +36,8 @@ export const setupTypingHighlight = (elapsedTimeGetter) => {
       accuracy = Math.round((correct / typedTextClean.length) * 100);
     }
 
-    //const wpm = calculateWPM(typedText, elapsedTime);
     const wpm = calculateWPM(typedTextClean.length, elapsedTime);
 
-    //console.log("wpm", wpm);
     wpmArea.textContent = `${wpm} WPM`;
     wpmArea2.textContent = `${wpm} WPM`;
     accuracyArea.textContent = `${accuracy}%`;
@@ -56,6 +46,14 @@ export const setupTypingHighlight = (elapsedTimeGetter) => {
     incorrectWord.textContent = mistakes;
 
     highlightText(typedTextClean, originalTextClean, textContent);
+
+    if (typedTextClean.length === originalTextClean.length) {
+      textInput.disabled = true;
+
+      stopTimer();
+
+      showSnackbar("Test Complete!", "success");
+    }
   });
 };
 

@@ -89,7 +89,6 @@ import { getRandomSentence } from "../../public/utils/randomText"
 
 import { startTime } from "/utils/startTime.js";
 import { setupTypingHighlight} from "/utils/setupTypingHighlight.js"
-//import { optional } from "astro:schema";
 import { getRandomSentence } from "/utils/randomText.js";
 import { sendTypingResult } from '/utils/sendTypingResult.js';
 
@@ -194,7 +193,7 @@ let selectedTime = 10;
     showWpmOptions.forEach(option => {
         const wpmShowarea = document.querySelector(".wpm-area")
         let originalWpmText = wpmShowarea.textContent;    
-        console.log("originalWpmText", originalWpmText)
+        
         option.addEventListener("click", () =>{
             showWpmOptions.forEach(el => el.classList.remove("active"));
             option.classList.add("active")
@@ -211,7 +210,6 @@ let selectedTime = 10;
         const timeShowContet = document.querySelector(".time-area")
         let originaltimeText = timeShowContet.textContent;    
         
-        console.log("originaltimeText", originaltimeText)
         option.addEventListener("click", () =>{
             showTimerOption.forEach(el => el.classList.remove("active"));
             option.classList.add("active")

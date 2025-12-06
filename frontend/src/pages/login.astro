@@ -226,6 +226,17 @@ const Pagetitle = "login";
 </style>
 
 <script>
+    // Login verification
+    fetch("http://localhost:3500/users/check-auth", { credentials: "include" })
+    .then(res => {
+      alert("You are already logged in.");
+
+      if (res.status === 200) {
+        window.location.href = "/";
+      }
+    })
+    .catch(err => console.error("Error checking auth", err));
+
   // Password toggle
   const viewBtn = document.querySelector(".toggle-btn") as HTMLButtonElement;
   const passwordInput = document.getElementById("password") as HTMLInputElement;

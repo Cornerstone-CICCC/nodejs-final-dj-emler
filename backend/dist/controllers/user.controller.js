@@ -121,6 +121,12 @@ const updateAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         }
         const userId = req.session.userId;
         const { username, email, currPassword, newPassword } = req.body;
+        //Email duplication check
+        const findemail = yield user_service_1.default.getByEmail(email);
+        if (findemail) {
+            res.status(409).json({ message: "This email is already registered." });
+            return;
+        }
         if (!username && !email && !currPassword && !newPassword) {
             res.status(400).json({ message: "Nothing to update!" });
             return;

@@ -1,15 +1,125 @@
 <header>
+  <div class="wrapper">
     <nav>
-        <div class="header-left">
-            <img src="../../src/images/TT-logo.png" alt="">
-            <h1>TypeTest</h1>
-        </div>
-        <div class="header-right">
-            <ul>
-                <li><a href="#" class="loginBtn">Login</a></li>
-                <li><a href="#" class="signupBtn">Sign up</a></li>
-            </ul>
-        </div>
+      <div class="header-left">
+        <a href="/">
+          <img src="../../src/images/TT-logo.png" alt="" />
+          <h1>TypeTest</h1>
+        </a>
+      </div>
+      <div class="header-right">
+        <ul id="nav-links">
+          <li><a href="/login" class="loginBtn">Login</a></li>
+          <li><a href="/signup" class="signupBtn">Sign up</a></li>
+        </ul>
+      </div>
     </nav>
+  </div>
 </header>
 
+<style>
+  header {
+    display: flex;
+    justify-content: center;
+  }
+
+  .wrapper {
+    display: flex;
+    padding: 1.5rem;
+    max-width: 1440px;
+    flex: 1;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .header-left a {
+    display: flex;
+    gap: 10px;
+  }
+
+  :global(.loginBtn) {
+    transition: all 0.5s linear;
+    padding: 15px;
+  }
+
+  :global(.loginBtn:hover) {
+    background-color: grey;
+  }
+
+  :global(.signupBtn) {
+    transition: all 0.5s linear;
+  }
+
+  :global(.signupBtn:hover) {
+    background-color: #60a5fa;
+  }
+
+  :global(.profileBtn) {
+    padding: 15px;
+    transition: all 0.5s linear;
+  }
+
+  :global(.profileBtn:hover) {
+    background-color: grey;
+  }
+
+  :global(.logoutBtn) {
+    background-color: #f49e0b;
+    color: white;
+    padding: 15px;
+    transition: all 0.5s linear;
+  }
+
+  :global(.logoutBtn:hover) {
+    background-color: #f3a723;
+  }
+</style>
+
+<script>
+  const API = "http://localhost:3500";
+
+  async function checkAuth() {
+    try {
+      const res = await fetch(`${API}/users/check-auth`, {
+        method: "GET",
+        credentials: "include",
+      });
+
+      const nav = document.getElementById("nav-links") as HTMLUListElement;
+      nav.innerHTML = "";
+
+      if (!res.ok) {
+        nav.innerHTML = `
+                    <li><a href="/login" class="loginBtn">Login</a></li>
+                    <li><a href="/signup" class="signupBtn">Sign up</a></li>
+                `;
+        return;
+      }
+
+      const data = await res.json();
+
+      nav.innerHTML = `
+                <li><a href="/profile" class="profileBtn">${data.username}</a></li>
+                <li><a href="/" class="logoutBtn">Logout</a></li>
+            `;
+
+      const logoutBtn = document.querySelector(".logoutBtn");
+      logoutBtn?.addEventListener("click", async () => {
+        await fetch(`${API}/users/logout`, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        window.location.reload();
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  checkAuth();
+</script>

@@ -1,10 +1,154 @@
 ---
-import Layout from "../layouts/Layout.astro"
-
-const Pagetitle = "leaderboard";
-
+import "../styles/leaderboard.css"
 ---
   
-<Layout title={Pagetitle}>
+
+<div class="leaderboard-container">
+  <h2 class="leaderboard-title">Daily Leaderboard</h2>
+
+  <table class="leaderboard-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>User</th>
+        <th>WPM</th>
+        <th>Accuracy</th>
+        <th>correct</th>
+        <th>Incorrect</th>
+        <th>Time</th>
+        <th>Taken</th>
+      </tr>
+    </thead>
+
+    <tbody id="ranking-table">
+      <!-- data of server or WebSocket -->
+    </tbody>
+  </table>
+  <div id="table-container">
+      <div>
+        <button id="prev" style="color:white;">Previous</button>
+        <span id="page-info" style="color:white;"></span>
+        <button id="next" style="color:white;">Next</button>
+      </div>
+    </div>
+</div>
+
+<script is:inline>
+
+  function toVancouverTime(isoString) {
+    const date = new Date(isoString);
+    const local = new Date(
+      date.toLocaleString("en-US", { timeZone: "America/Vancouver" })
+    );
+
+    return (
+      local.getFullYear() +
+      "-" +
+      String(local.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(local.getDate()).padStart(2, "0") +
+      " " +
+      String(local.getHours()).padStart(2, "0") +
+      ":" +
+      String(local.getMinutes()).padStart(2, "0") +
+      ":" +
+      String(local.getSeconds()).padStart(2, "0")
+    );
+  }
+
+  async function loadRanking() {
+    const res = await fetch("http://localhost:3500/score/rank");
+    const data = await res.json();
+    updateTable(data);
+  }
   
-</Layout>
+  function updateTable(data) {
+    const tbody = document.getElementById("ranking-table");
+    tbody.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align: center;">No data available</td>
+      </tr>
+    `;
+    return;
+  }
+
+    data.forEach((item, index) => {
+      
+      const rankNumber = (currentPage - 1) * rowsPerPage + index + 1;
+      let rank;
+      if (rankNumber === 1) rank = "🥇";
+      else if (rankNumber === 2) rank = "🥈";
+      else if (rankNumber === 3) rank = "🥉";
+      else rank = rankNumber;
+
+      tbody.innerHTML += `
+        <tr>
+          <td>${rank}</td>
+          <td>${item.username || "Unknown"}</td>
+          <td>${item.wpm} WPM</td>
+          <td>${item.accuracy}%</td>
+          <td>${item.correctChars}</td>
+          <td>${item.incorrectChars}</td>
+          <td>0:${item.duration || "-"}</td>
+          <td>${toVancouverTime(item.takenAt) || "-"}</td>
+        </tr>
+      `
+    })
+  }
+
+  loadRanking()
+
+  
+  let rankingData = [];
+  const rowsPerPage = 10;
+  let currentPage = 1;
+
+async function loadData() {
+  const res = await fetch("http://localhost:3500/score/rank");
+  const data = await res.json();
+  rankingData = data;
+  renderPage();
+}
+
+function renderPage() {
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const pageData = rankingData.slice(start, end);
+
+  updateTable(pageData); 
+  document.getElementById("page-info").textContent =
+    `${currentPage} / ${Math.ceil(rankingData.length / rowsPerPage)}`;
+}
+
+document.getElementById("prev").addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderPage();
+  }
+});
+
+document.getElementById("next").addEventListener("click", () => {
+  if (currentPage < Math.ceil(rankingData.length / rowsPerPage)) {
+    currentPage++;
+    renderPage();
+  }
+});
+
+loadData();
+
+</script>
+
+<script src="http://localhost:3500/socket.io/socket.io.js" is:inline></script>
+
+<script is:inline>
+  const socket = io("http://localhost:3500");
+
+  socket.on("ranking_update", (ranking) => {
+    rankingData = ranking; 
+    renderPage();
+  });
+</script>
+

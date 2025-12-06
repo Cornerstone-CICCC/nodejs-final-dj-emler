@@ -429,6 +429,9 @@ const Pagetitle = "profile";
   const API = "http://localhost:3500";
 
   // Check auth on load
+  let originalEmail = "";
+  let originalUsername = "";
+
   window.addEventListener("DOMContentLoaded", async () => {
     try {
       const res = await fetch(`${API}/users/check-auth`, {
@@ -443,13 +446,16 @@ const Pagetitle = "profile";
 
       const data = await res.json();
 
+      originalEmail = data.email;
+      originalUsername = data.username;
+
       const emailInput = document.getElementById("email") as HTMLInputElement;
       const usernameInput = document.getElementById(
         "username"
       ) as HTMLInputElement;
 
-      if (emailInput) emailInput.value = data.email || "";
-      if (usernameInput) usernameInput.value = data.username || "";
+      if (emailInput) emailInput.value = originalEmail;
+      if (usernameInput) usernameInput.value = originalUsername;
     } catch (err) {
       console.error(err);
       window.location.href = "/login";
@@ -479,12 +485,19 @@ const Pagetitle = "profile";
 
     const updates: any = {};
 
-    if (email) updates.email = email;
-    if (username) updates.username = username;
+    const gmailRegex = /^[a-zA-Z0-9_.+]+@gmail\.com$/;
+
+    if (email && email !== originalEmail) {
+      if (!gmailRegex.test(email)) {
+        return showToast("Email must be a valid Gmail address!", "error");
+      }
+      updates.email = email;
+    }
+    if (username && username !== originalUsername) updates.username = username;
 
     if (curr || newPass || confirmPass) {
       if (!curr || !newPass || !confirmPass) {
-        return showToast("All password fields required.");
+        return showToast("All password fields required.", "error");
       }
 
       if (newPass !== confirmPass) {
@@ -496,7 +509,7 @@ const Pagetitle = "profile";
     }
 
     if (Object.keys(updates).length === 0) {
-      return showToast("Nothing to update!");
+      return showToast("Nothing to update!", "error");
     }
 
     try {

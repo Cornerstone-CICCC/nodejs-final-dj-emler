@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { IUser, User } from "../models/user.model";
 import userService from "../services/user.service";
+import { userInfo } from "os";
 
 /**
  * Sign up (add user)
@@ -144,6 +145,32 @@ const updateAccount = async (req: Request, res: Response) => {
     if (!user) {
       res.status(404).json({ message: "User not found." });
       return;
+    }
+
+    // Check if username exist
+    if (username && username.trim() !== user.username) {
+      const existingUsername = await User.findOne({
+        username: username.trim(),
+        _id: { $ne: userId }
+      })
+
+      if (existingUsername) {
+        res.status(409).json({ message: "Username already exists!" })
+        return
+      }
+    }
+
+    // Check if email exist
+    if (email && email.trim() !== user.email) {
+      const existingEmail = await User.findOne({
+        email: email.trim(),
+        _id: { $ne: userId }
+      })
+
+      if (existingEmail) {
+        res.status(409).json({ message: "Email already exists!" })
+        return
+      }
     }
 
     // Email update

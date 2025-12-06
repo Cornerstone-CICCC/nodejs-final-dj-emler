@@ -130,6 +130,28 @@ const updateAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             res.status(404).json({ message: "User not found." });
             return;
         }
+        // Check if username exist
+        if (username && username.trim() !== user.username) {
+            const existingUsername = yield user_model_1.User.findOne({
+                username: username.trim(),
+                _id: { $ne: userId }
+            });
+            if (existingUsername) {
+                res.status(409).json({ message: "Username already exists!" });
+                return;
+            }
+        }
+        // Check if email exist
+        if (email && email.trim() !== user.email) {
+            const existingEmail = yield user_model_1.User.findOne({
+                email: email.trim(),
+                _id: { $ne: userId }
+            });
+            if (existingEmail) {
+                res.status(409).json({ message: "Email already exists!" });
+                return;
+            }
+        }
         // Email update
         if (email) {
             user.email = email.trim();

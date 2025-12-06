@@ -1,239 +1,249 @@
 ---
-
-import { getRandomSentence } from "../../public/utils/randomText"
-
+import { getRandomSentence } from "../../public/utils/randomText";
 ---
-  
+
 <main>
+  <div class="wrapper">
     <div class="type-test-container">
-        <div class="type-intro">
-            <div class="type">Type Test</div>
-        </div>
+      <div class="type-intro">
+        <div class="type">Type Test</div>
+      </div>
 
-        <div class="type-container">
-            <div class="text-section">
-                <div class="text" id="text-content">
-                    {getRandomSentence}
-                </div>
+      <div class="type-container">
+        <div class="text-section">
+          <div class="text" id="text-content">
+            {getRandomSentence}
+          </div>
 
-                <div class="text-input-section">
-                    <input type="text" class="typing-input" id="typing-input" value="" autocomplete="off">
-                    <div class="wpm-area">0 WPM</div>
-                    <div class="time-area">0:10</div>
-                    <div class="reload-btn-area">
-                        <button class="type-reload-btn"><i class="fa-solid fa-arrows-rotate"></i></button>
-                    </div>
-                </div>
-
-                <div class="typing-result-section">
-                    
-                    <div class="result-left">
-                        <span class="result-spped">0 WPM</span>
-                        <ul class="result-list">
-                            <li><span >Raw WPM</span><span class="raw-WPM">-</span></li>
-                            <li><span >Accuracy</span><span class="accuracy">-</span></li>
-                            <li><span >Correct Characters</span><span class="CorCha">-</span></li>
-                            <li><span >incorrect Characters</span><span class="inCorCha">-</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="result-right">
-                        <ul class="right-result-list">
-                            <li>
-                                <span>Test Duration</span>
-                                <span class="time-option active">0:10</span>
-                                <span class="time-option">0:30</span>
-                                <span class="time-option">1:00</span>
-                            </li>
-                            
-                            <li>
-                                <span>World List</span>
-                                <span class="words-option active">Simple</span>
-                                <span class="words-option">Advanced</span>
-                            </li>
-
-                            <li>
-                                <span>Punctuation</span>
-                                <span class="pun-option active">On</span>
-                                <span class="pun-option">Off</span>
-                            </li>
-
-                            <li>
-                                <span>Numbers</span>
-                                <span class="num-option active">On</span>
-                                <span class="num-option">Off</span>
-                            </li>
-
-                            <li>
-                                <span>Show WPM</span>
-                                <span class="showwpm-option active">Show</span>
-                                <span class="showwpm-option">Hide</span>
-                            </li>
-
-                            <li>
-                                <span>Show Timer</span>
-                                <span class="showtimer active">Show</span>
-                                <span class="showtimer">Hide</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+          <div class="text-input-section">
+            <input
+              type="text"
+              class="typing-input"
+              id="typing-input"
+              value=""
+              autocomplete="off"
+            />
+            <div class="wpm-area">0 WPM</div>
+            <div class="time-area">0:10</div>
+            <div class="reload-btn-area">
+              <button class="type-reload-btn"
+                ><i class="fa-solid fa-arrows-rotate"></i></button
+              >
             </div>
+          </div>
+
+          <div class="typing-result-section">
+            <div class="result-left">
+              <span class="result-spped">0 WPM</span>
+              <ul class="result-list">
+                <li><span>Raw WPM</span><span class="raw-WPM">-</span></li>
+                <li><span>Accuracy</span><span class="accuracy">-</span></li>
+                <li>
+                  <span>Correct Characters</span><span class="CorCha">-</span>
+                </li>
+                <li>
+                  <span>incorrect Characters</span><span class="inCorCha"
+                    >-</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="result-right">
+              <ul class="right-result-list">
+                <li>
+                  <span>Test Duration</span>
+                  <span class="time-option active">0:10</span>
+                  <span class="time-option">0:30</span>
+                  <span class="time-option">1:00</span>
+                </li>
+
+                <li>
+                  <span>World List</span>
+                  <span class="words-option active">Simple</span>
+                  <span class="words-option">Advanced</span>
+                </li>
+
+                <li>
+                  <span>Punctuation</span>
+                  <span class="pun-option active">On</span>
+                  <span class="pun-option">Off</span>
+                </li>
+
+                <li>
+                  <span>Numbers</span>
+                  <span class="num-option active">On</span>
+                  <span class="num-option">Off</span>
+                </li>
+
+                <li>
+                  <span>Show WPM</span>
+                  <span class="showwpm-option active">Show</span>
+                  <span class="showwpm-option">Hide</span>
+                </li>
+
+                <li>
+                  <span>Show Timer</span>
+                  <span class="showtimer active">Show</span>
+                  <span class="showtimer">Hide</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <div id="snackbar">Snackbar</div>
+  </div>
 </main>
 
+<style>
+  main {
+    display: flex;
+    justify-content: center;
+  }
+  .wrapper {
+    max-width: 1440px;
+  }
+</style>
+
 <script type="module">
+  import { startTime } from "/utils/startTime.js";
+  import { setupTypingHighlight } from "/utils/setupTypingHighlight.js";
+  import { getRandomSentence } from "/utils/randomText.js";
+  import { sendTypingResult } from "/utils/sendTypingResult.js";
 
-import { startTime } from "/utils/startTime.js";
-import { setupTypingHighlight} from "/utils/setupTypingHighlight.js"
-import { getRandomSentence } from "/utils/randomText.js";
-import { sendTypingResult } from '/utils/sendTypingResult.js';
+  let startTimestamp = Date.now();
 
-
-
-let startTimestamp = Date.now();
-
-window.currentOptions = {
-    wordList: 'simple',
+  window.currentOptions = {
+    wordList: "simple",
     punctuation: true,
-    numbers: true
-};
+    numbers: true,
+  };
 
-document.getElementById("typing-input").addEventListener("change", () => {
+  document.getElementById("typing-input").addEventListener("change", () => {
     sendTypingResult(currentOptions);
-});
+  });
 
-function getElapsedTime() {
-  if (!startTimestamp) return 0;
-  return Math.floor((Date.now() - startTimestamp) / 1000);
-}
+  function getElapsedTime() {
+    if (!startTimestamp) return 0;
+    return Math.floor((Date.now() - startTimestamp) / 1000);
+  }
 
-let timerStarted = false;
-let selectedTime = 10;
+  let timerStarted = false;
+  let selectedTime = 10;
 
   document.addEventListener("DOMContentLoaded", () => {
     const timeOptions = document.querySelectorAll(".time-option");
     const countdownDisplay = document.querySelector(".time-area");
-    const wordsOptions = document.querySelectorAll(".words-option")
-    const punOptions = document.querySelectorAll(".pun-option")
-    const numOptions = document.querySelectorAll(".num-option")
-    const showWpmOptions = document.querySelectorAll(".showwpm-option")
-    const showTimerOption =document.querySelectorAll(".showtimer")
-    const reloadBtn = document.querySelector(".type-reload-btn")
-    const textInput = document.getElementById("typing-input")
-
+    const wordsOptions = document.querySelectorAll(".words-option");
+    const punOptions = document.querySelectorAll(".pun-option");
+    const numOptions = document.querySelectorAll(".num-option");
+    const showWpmOptions = document.querySelectorAll(".showwpm-option");
+    const showTimerOption = document.querySelectorAll(".showtimer");
+    const reloadBtn = document.querySelector(".type-reload-btn");
+    const textInput = document.getElementById("typing-input");
 
     reloadBtn.addEventListener("click", () => {
-        location.reload();
-    })
+      location.reload();
+    });
 
-    timeOptions.forEach(option => {
-        option.addEventListener("click", () => {
-        timeOptions.forEach(el => el.classList.remove("active"));
+    timeOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        timeOptions.forEach((el) => el.classList.remove("active"));
         option.classList.add("active");
 
         const [min, sec] = option.textContent.split(":").map(Number);
         selectedTime = min * 60 + sec;
 
-
         const displaySec = selectedTime % 60;
         const displayMin = Math.floor(selectedTime / 60);
         countdownDisplay.textContent = `${displayMin}:${displaySec < 10 ? "0" : ""}${displaySec}`;
-        });
+      });
     });
 
-    wordsOptions.forEach(option => {
-    option.addEventListener("click", () =>{
-        wordsOptions.forEach(el => el.classList.remove("active"));
+    wordsOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        wordsOptions.forEach((el) => el.classList.remove("active"));
         option.classList.add("active");
 
-        currentOptions.wordList = option.textContent.toLowerCase(); 
+        currentOptions.wordList = option.textContent.toLowerCase();
 
         const newSentence = getRandomSentence(currentOptions);
-        
-        const textContent = document.getElementById("text-content")
-        textContent.textContent = newSentence
 
-        
-        textInput.value = ""
-    })
-});
+        const textContent = document.getElementById("text-content");
+        textContent.textContent = newSentence;
 
-    punOptions.forEach(option => {
-    option.addEventListener("click", () =>{
-        punOptions.forEach(el => el.classList.remove("active"));
+        textInput.value = "";
+      });
+    });
+
+    punOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        punOptions.forEach((el) => el.classList.remove("active"));
         option.classList.add("active");
 
-        currentOptions.punctuation = option.textContent.toLowerCase() === "show"; 
-
-        const newSentence = getRandomSentence(currentOptions);
-        document.getElementById("text-content").textContent = newSentence;
-        document.getElementById("typing-input").value = "";
-    })
-});
-
-    numOptions.forEach(option => {
-    option.addEventListener("click", () =>{
-        numOptions.forEach(el => el.classList.remove("active"));
-        option.classList.add("active");
-
-        currentOptions.numbers = option.textContent.toLowerCase() === "show"; 
+        currentOptions.punctuation =
+          option.textContent.toLowerCase() === "show";
 
         const newSentence = getRandomSentence(currentOptions);
         document.getElementById("text-content").textContent = newSentence;
         document.getElementById("typing-input").value = "";
-    })
-});
+      });
+    });
 
-    
+    numOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        numOptions.forEach((el) => el.classList.remove("active"));
+        option.classList.add("active");
 
-    showWpmOptions.forEach(option => {
-        const wpmShowarea = document.querySelector(".wpm-area")
-        let originalWpmText = wpmShowarea.textContent;    
-        
-        option.addEventListener("click", () =>{
-            showWpmOptions.forEach(el => el.classList.remove("active"));
-            option.classList.add("active")
+        currentOptions.numbers = option.textContent.toLowerCase() === "show";
 
-            if(option.textContent.toLowerCase() === "show") {
-                wpmShowarea.textContent = originalWpmText; 
-            } else {
-                wpmShowarea.textContent = ""; 
-            }
-        })
-    })
+        const newSentence = getRandomSentence(currentOptions);
+        document.getElementById("text-content").textContent = newSentence;
+        document.getElementById("typing-input").value = "";
+      });
+    });
 
-    showTimerOption.forEach(option => {
-        const timeShowContet = document.querySelector(".time-area")
-        let originaltimeText = timeShowContet.textContent;    
-        
-        option.addEventListener("click", () =>{
-            showTimerOption.forEach(el => el.classList.remove("active"));
-            option.classList.add("active")
+    showWpmOptions.forEach((option) => {
+      const wpmShowarea = document.querySelector(".wpm-area");
+      let originalWpmText = wpmShowarea.textContent;
 
-            if(option.textContent.toLowerCase() === "show") {
-                timeShowContet.textContent = originaltimeText; 
-            } else {
-                timeShowContet.textContent = ""; 
-            }
-        })
-    })
+      option.addEventListener("click", () => {
+        showWpmOptions.forEach((el) => el.classList.remove("active"));
+        option.classList.add("active");
 
-});
+        if (option.textContent.toLowerCase() === "show") {
+          wpmShowarea.textContent = originalWpmText;
+        } else {
+          wpmShowarea.textContent = "";
+        }
+      });
+    });
 
+    showTimerOption.forEach((option) => {
+      const timeShowContet = document.querySelector(".time-area");
+      let originaltimeText = timeShowContet.textContent;
 
-document.getElementById("typing-input").addEventListener("input", () => {
-    if(!timerStarted){
-        timerStarted = true;
-        startTime(selectedTime);
-        setupTypingHighlight(getElapsedTime)
+      option.addEventListener("click", () => {
+        showTimerOption.forEach((el) => el.classList.remove("active"));
+        option.classList.add("active");
+
+        if (option.textContent.toLowerCase() === "show") {
+          timeShowContet.textContent = originaltimeText;
+        } else {
+          timeShowContet.textContent = "";
+        }
+      });
+    });
+  });
+
+  document.getElementById("typing-input").addEventListener("input", () => {
+    if (!timerStarted) {
+      timerStarted = true;
+      startTime(selectedTime);
+      setupTypingHighlight(getElapsedTime);
     }
-})
-
-
-
-
+  });
 </script>

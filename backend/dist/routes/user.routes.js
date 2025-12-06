@@ -11,6 +11,6 @@ userRouter.post('/signup', auth_middleware_1.checkLogout, user_controller_1.defa
 userRouter.post('/login', auth_middleware_1.checkLogout, user_controller_1.default.login);
 userRouter.get('/check-auth', auth_middleware_1.checkLogin, user_controller_1.default.getUserByUsername);
 userRouter.put('/profile', auth_middleware_1.checkLogin, user_controller_1.default.updateAccount);
-userRouter.get('/logout', user_controller_1.default.logout);
+userRouter.get('/logout', auth_middleware_1.checkLogin, user_controller_1.default.logout);
 userRouter.delete('/delete', auth_middleware_1.checkLogin, user_controller_1.default.deleteAccount);
 exports.default = userRouter;

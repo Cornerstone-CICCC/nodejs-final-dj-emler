@@ -25,7 +25,6 @@
 
   .wrapper {
     display: flex;
-    padding: 1.5rem;
     max-width: 1440px;
     flex: 1;
   }
@@ -98,6 +97,11 @@
                     <li><a href="/signup" class="signupBtn">Sign up</a></li>
                 `;
         return;
+      } else {
+        const currentUrl = window.location.pathname;
+        if (currentUrl.includes("login") || currentUrl.includes("signup")) {
+          window.location.href = "/";
+        }
       }
 
       const data = await res.json();

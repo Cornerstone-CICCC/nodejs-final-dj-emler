@@ -10,7 +10,7 @@ userRouter.post('/login', checkLogout, userController.login)
 userRouter.get('/check-auth', checkLogin, userController.getUserByUsername)
 userRouter.put('/profile', checkLogin, userController.updateAccount)
 
-userRouter.get('/logout', userController.logout)
+userRouter.get('/logout', checkLogin, userController.logout)
 
 userRouter.delete('/delete', checkLogin, userController.deleteAccount)
 

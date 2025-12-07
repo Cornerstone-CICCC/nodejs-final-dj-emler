@@ -153,6 +153,32 @@ const updateAccount = async (req: Request, res: Response) => {
       return;
     }
 
+    // Check if username exist
+    if (username && username.trim() !== user.username) {
+      const existingUsername = await User.findOne({
+        username: username.trim(),
+        _id: { $ne: userId }
+      })
+
+      if (existingUsername) {
+        res.status(409).json({ message: "Username already exists!" })
+        return
+      }
+    }
+
+    // Check if email exist
+    if (email && email.trim() !== user.email) {
+      const existingEmail = await User.findOne({
+        email: email.trim(),
+        _id: { $ne: userId }
+      })
+
+      if (existingEmail) {
+        res.status(409).json({ message: "Email already exists!" })
+        return
+      }
+    }
+
     // Email update
     if (email) {
       user.email = email.trim();
